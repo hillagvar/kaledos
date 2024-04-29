@@ -23,12 +23,13 @@ export class AddNewPresentComponent {
     this.presentsService.addPresent({
       recipient: this.recipient,
       description: this.description,
-      status: this.status
-      }) 
-    this.recipient = null;
+      status: this.status,
+      id: null,
+      }).subscribe(()=> {
+        this.recipient = null;
     this.description = null;
     this.status = null;
+      })
     }
   }
-
 }
