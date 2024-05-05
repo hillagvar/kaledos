@@ -3,44 +3,77 @@ import { PresentsService } from '../../services/presents.service';
 import { Present } from '../../models/present';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-list-of-presents',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink, LoadingComponent],
   templateUrl: './list-of-presents.component.html',
   styleUrl: './list-of-presents.component.css'
 })
 export class ListOfPresentsComponent {
 
   public presents: Present[] = [];
-  
-  public constructor(private presentsService: PresentsService){
 
+  public isLoading = false;
+  public isError = false;
+
+  public constructor(private presentsService: PresentsService) {
     this.loadData();
   }
 
   private loadData() {
 
-    this.presentsService.loadData().subscribe((data)=>{
-      this.presents = [];
-      for (let x in data){
-        this.presents.push({...data[x], id:x });
+    let obs = this.presentsService.loadData();
+
+    /*
+     //kai turime tik viena f-ja, kuria norima, kad iskviestu po duomenu gavimo
+     obs.subscribe( (data) => {
+      console.log("duomenys gauti paprastai");
+     });
+
+     obs.subscribe({
+      next: (data) => {
+        console.log("duomenys gauti is next");   
+      },
+      error: (err) => {
+        console.log("ivyko klaida");
+      },
+      complete: () => {
+        console.log("obs baige darba");
       }
-      console.log(this.presents);
+     });
+    */
+
+    this.isLoading = true;
+    this.isError = false;
+
+    obs.subscribe({
+      next: (data) => {  
+        this.presents = data;       
+        this.isLoading = false;
+        this.isError = false;
+      },
+      error: (err) => {
+        this.isError = true;
+        this.isLoading = false;
+      }
     });
   }
-
-
-  public deleteRecord(id: string | null){
+      
+    
+  public deleteRecord(id: string | null) {
     if (id != null){
+      this.isLoading = true;
       this.presentsService.deleteRecord(id).subscribe(()=>{
+        
         this.loadData();
       });
     }
   }
-}
 
+}
    
 
 

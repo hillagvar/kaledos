@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { PresentsService } from '../../services/presents.service';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from '../loading/loading.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-new-present',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, LoadingComponent, CommonModule],
   templateUrl: './add-new-present.component.html',
   styleUrl: './add-new-present.component.css'
 })
@@ -14,12 +16,15 @@ export class AddNewPresentComponent {
   public description: string | null = null;
   public status: string | null = null;
 
+  public isLoading = false;
+
   public constructor(private presentsService: PresentsService) {
 
   }
 
   public addPresent() {
     if (this.recipient != null && this.description != null && this.status != null) {
+    this.isLoading = true;
     this.presentsService.addPresent({
       recipient: this.recipient,
       description: this.description,
@@ -27,9 +32,10 @@ export class AddNewPresentComponent {
       id: null,
       }).subscribe(()=> {
         this.recipient = null;
-    this.description = null;
-    this.status = null;
-      })
+        this.description = null;
+        this.status = null;
+        this.isLoading = false;
+      });
     }
   }
 }

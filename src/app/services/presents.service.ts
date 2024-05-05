@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Present } from '../models/present';
 import { HttpClient } from '@angular/common/http';
+import { delay, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,24 @@ export class PresentsService {
   }
 
   public loadData() {
-    return this.http.get<{[key: string] : Present}>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents.json");
+
+    //gauname observable
+
+    return this.http
+    .get<{[key: string] : Present}>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents.json")
+   .pipe(
+      map ( (data): Present[]=> {
+        let presents = [];
+        for (let x in data) {
+          presents.push({...data[x], id:x });
+        }
+        return presents;
+      }),
+      tap ( (data) => {
+        this.presents = data;
+      })
+      // delay(1000)
+    )
   }
 
   public loadRecord(id: string) {
