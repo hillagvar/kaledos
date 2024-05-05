@@ -4,11 +4,12 @@ import { Present } from '../../models/present';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-list-of-presents',
   standalone: true,
-  imports: [CommonModule,RouterLink, LoadingComponent],
+  imports: [CommonModule,RouterLink, LoadingComponent, ErrorComponent],
   templateUrl: './list-of-presents.component.html',
   styleUrl: './list-of-presents.component.css'
 })
