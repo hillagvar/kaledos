@@ -74,6 +74,11 @@ export class ListOfPresentsComponent {
     }
   }
 
+  public closeError() {
+    this.loadData();
+
+  }
+
 }
    
 

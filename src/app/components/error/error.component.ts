@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-error',
@@ -10,7 +10,14 @@ import { Component, Input } from '@angular/core';
 export class ErrorComponent {
 
   @Input()
-  public message: string = "";
+  message: string = "";
+
+  @Output()
+  close = new EventEmitter();
+
+  public closeClick() {
+    this.close.emit();
+  }
 
 
 }
