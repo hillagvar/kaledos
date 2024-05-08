@@ -1,0 +1,21 @@
+<div class="row mb-5 mt-5">
+    <div class="col-md-6 offset-md-3 col-xs-12">
+        <div class="card">
+            <div class="card-header">{{isLoginMode? "Prisijungti prie sistemos" : "Naujo vartotojo registracija"}}</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="" class="form-label">El.paštas</label>
+                    <input type="text" name="email" id="" class="form-control" [(ngModel)]="email">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Slaptažodis</label>
+                    <input type="password" name="password" id="" class="form-control" [(ngModel)]="password">
+                </div>
+                <div>
+                    <button class="btn btn-success" (click)="login()">{{isLoginMode? "Prisijungti prie sistemos" : "Naujo vartotojo registracija"}}</button>
+                    <a href="#" class="float-end" (click)="changeLoginMode()">{{isLoginMode? "Naujo vartotojo registracija" : "Prisijungti prie sistemos"}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

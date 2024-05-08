@@ -3,6 +3,12 @@
     <div class="card-header">Dovanų sąrašas</div>
     <div class="card-body">
         <app-error *ngIf="isError" [message]="'Sąrašo užkrauti napavyko'" (close)="closeError()"></app-error>
+        <div class="d-flex justify-content-start gap-1">
+            <button class="btn btn btn-outline-success" (click)="loadData('all')">visos dovanos</button>
+            <button class="btn btn btn-outline-success" (click)="loadData('nupirkta')">nupirkta</button>
+            <button class="btn btn btn-outline-success" (click)="loadData('suplanuota')">suplanuota</button>
+            <button class="btn btn-outline-success" (click)="loadData('supakuota')">supakuota</button>
+        </div>
         <table class="table" *ngIf="!isLoading && !isError">
             <thead>
                 <tr>
