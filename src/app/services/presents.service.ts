@@ -51,7 +51,7 @@ export class PresentsService {
     //gauname observable
 
     return this.http
-    .get<{[key: string] : Present}>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents.json?auth="+this.authService.auth?.idToken)
+    .get<{[key: string] : Present}>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents.json")
    .pipe(
       map ( (data): Present[]=> {
         let presents = [];
@@ -83,15 +83,15 @@ export class PresentsService {
 
 
   public loadRecord(id: string) {
-    return this.http.get<Present>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+id+".json?auth="+this.authService.auth?.idToken);
+    return this.http.get<Present>("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+id+".json");
   }
 
   public updateRecord(item: Present) {
-    return this.http.patch("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+item.id+".json?auth="+this.authService.auth?.idToken, item);
+    return this.http.patch("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+item.id+".json", item);
   }
 
   public deleteRecord(id: string) {
-    return this.http.delete("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+id+".json?auth="+this.authService.auth?.idToken)
+    return this.http.delete("https://kaledos-d3222-default-rtdb.europe-west1.firebasedatabase.app/presents/"+id+".json")
       .pipe(tap(() => this.onPresentCountChange.emit())
     );
   }

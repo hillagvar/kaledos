@@ -5,8 +5,9 @@ import { EditProductComponent } from './components/edit-product/edit-product.com
 import { LoginFormComponent } from './components/login-form/login-form.component';
 
 export const routes: Routes = [
+    {path: "", component: LoginFormComponent},
     {path: "list", component: ListOfPresentsComponent},
     {path: "addnew", component: AddNewPresentComponent},
     {path: "edit/:id", component: EditProductComponent},
-    {path: "", component: LoginFormComponent}
+    
 ];
